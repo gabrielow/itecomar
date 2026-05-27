@@ -469,8 +469,11 @@
 </head>
 <body>
 
-<!-- Número de WhatsApp (sin +, con código de país). Ejemplo: 5493756123456 -->
-<script>const WA_NUMERO = '5493743454291';</script>
+<!-- Números de WhatsApp -->
+<script>
+  const WA_BOT   = '5493743434312'; // Bot Jardín América — turnos ANSES
+  const WA_ADMIN = '5493743454291'; // Superadmin — contacto organizaciones
+</script>
 
 <!-- ── Navbar ───────────────────────────────────────────────── -->
 <nav class="navbar">
@@ -676,7 +679,7 @@
           el sistema. Contactanos y analizamos juntos cómo adaptarlo.
         </p>
       </div>
-      <a class="btn-light" href="#" onclick="irAlBot('Hola! Me interesa implementar el sistema de turnos para mi organización'); return false;">
+      <a class="btn-light" href="#" onclick="irAlAdmin('Hola! Me interesa implementar el sistema de turnos para mi organización'); return false;">
         💬 Hablemos
       </a>
     </div>
@@ -900,7 +903,7 @@
          style="display:inline-flex;">
         💬 Pedir turno — Operativo ANSES
       </a>
-      <a class="btn-secondary" href="#" onclick="irAlBot('Hola! Me interesa implementar el sistema para mi organización'); return false;"
+      <a class="btn-secondary" href="#" onclick="irAlAdmin('Hola! Me interesa implementar el sistema para mi organización'); return false;"
          style="display:inline-flex;">
         🏛️ Quiero implementarlo
       </a>
@@ -925,8 +928,8 @@
 </footer>
 
 <!-- ── WhatsApp flotante ────────────────────────────────────────── -->
-<a class="wa-float" href="#" title="Pedir turno por WhatsApp"
-   onclick="irAlBot('Hola! Quiero pedir un turno'); return false;">
+<a class="wa-float" href="#" title="Contactar con ITe"
+   onclick="irAlAdmin('Hola! Me interesa saber más sobre ITe'); return false;">
   <svg viewBox="0 0 24 24" fill="white" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
     <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.83L.072 23.928l6.246-1.424A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.87 9.87 0 01-5.031-1.375l-.361-.214-3.706.846.878-3.601-.235-.371A9.844 9.844 0 012.118 12C2.118 6.548 6.548 2.118 12 2.118S21.882 6.548 21.882 12 17.452 21.882 12 21.882z"/>
@@ -934,14 +937,14 @@
 </a>
 
 <script>
-  function irAlBot(texto) {
-    if (!WA_NUMERO || WA_NUMERO === 'REEMPLAZAR_CON_NUMERO') {
-      alert('El número de WhatsApp aún no está configurado.');
-      return;
-    }
-    const url = `https://wa.me/${WA_NUMERO}?text=${encodeURIComponent(texto)}`;
+  function _abrirWA(numero, texto) {
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
     window.open(url, '_blank', 'noopener');
   }
+  // Botones "Pedir turno" → bot de Jardín América
+  function irAlBot(texto)   { _abrirWA(WA_BOT,   texto); }
+  // Botones de organizaciones + burbuja flotante → superadmin
+  function irAlAdmin(texto) { _abrirWA(WA_ADMIN, texto); }
 
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
